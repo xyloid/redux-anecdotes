@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import NewAnecdote from './components/NewAnecdote'
 
 const App = () => {
   const anecdotes = useSelector(state => state)
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
+      <NewAnecdote />
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
