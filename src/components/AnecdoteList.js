@@ -18,12 +18,23 @@ const Ancedote = ({ anecdote, handleClick }) => {
 const AnecdoteList = () => {
   const dispatch = useDispatch();
 
-  const anecdotes = useSelector((state) => state.anecdotes);
+  //   const anecdotes = useSelector((state) => state.anecdotes);
+  //   const pattern = useSelector((state)=>state.pattern)
+  const anecdotes = useSelector(({ anecdotes, filter }) => {
+    if (filter.trim() === "") {
+      return anecdotes;
+    } else {
+      return anecdotes.filter((a) => a.content.includes(filter));
+    }
+  });
 
   const vote = (a) => {
     console.log("vote", a.id);
     dispatch(voteAnecdote(a.id));
     dispatch(createMessage(`You voted '${a.content}'`));
+    setTimeout(()=>{
+        dispatch(createMessage(``));
+    },5000)
   };
 
   return (
