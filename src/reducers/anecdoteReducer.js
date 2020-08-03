@@ -17,12 +17,23 @@ const asObject = (anecdote) => {
   };
 };
 
+export const createAnecdote = (content)=>{
+  return {
+    type:"NEW_ANECDOTE",
+    data:asObject(content)
+  }
+}
+
 const initialState = anecdotesAtStart.map(asObject);
 
 const reducer = (state = initialState, action) => {
   console.log("state now: ", state);
   console.log("action", action);
   switch (action.type) {
+    case "NEW_ANECDOTE":{
+      console.log("data ",action.data)
+      return state.concat(action.data)
+    }
     case "VOTE": {
       const id = action.data.id;
       const voted = state.find((a) => a.id === id);
