@@ -20,7 +20,7 @@ const asObject = (anecdote) => {
 export const createAnecdote = (content)=>{
   return {
     type:"NEW_ANECDOTE",
-    data:asObject(content)
+    data:{...asObject(content)}
   }
 }
 

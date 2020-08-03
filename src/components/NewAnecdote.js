@@ -5,9 +5,9 @@ import { createAnecdote } from "../reducers/anecdoteReducer";
 const NewAnecdote = (props) => {
     const dispatch = useDispatch()
     const addAnecdote = (event) => {
-        event.prevenDefault()
-        console.log(createAnecdote(event.target.content.value))
-        dispatch(createAnecdote(event.target.content.value))
+        event.preventDefault()
+        const content = event.target.content.value
+        dispatch(createAnecdote(content))
         event.target.content.value = ''
     };
 
