@@ -16,6 +16,7 @@
 //     votes: 0,
 //   };
 // };
+import anecdoteService from "../services/anecdotes";
 
 export const createAnecdote = (data) => {
   return {
@@ -31,10 +32,13 @@ export const voteAnecdote = (id) => {
   };
 };
 
-export const initAnecdotes = (anecdotes) => {
-  return {
-    type: "INIT_ANECDOTES",
-    data: anecdotes,
+export const initAnecdotes = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll();
+    dispatch({
+      type: "INIT_ANECDOTES",
+      data: anecdotes,
+    });
   };
 };
 
