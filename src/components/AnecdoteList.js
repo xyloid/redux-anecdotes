@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { voteAnecdote } from "../reducers/anecdoteReducer";
 import { createMessage } from "../reducers/notificationReducer";
@@ -17,7 +17,7 @@ const Ancedote = ({ anecdote, handleClick }) => {
 };
 
 const AnecdoteList = (props) => {
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
   console.log("log props", props);
   //   const anecdotes = useSelector((state) => state.anecdotes);
   //   const pattern = useSelector((state)=>state.pattern)
@@ -30,10 +30,11 @@ const AnecdoteList = (props) => {
   };
 
   const vote = (a) => {
-    console.log("vote", a.id);
-    dispatch(voteAnecdote(a.id));
-
-    dispatch(createMessage(a.content, 3));
+    console.log("vote", a);
+    // dispatch(voteAnecdote(a.id));
+    props.voteAnecdote(a.id)
+    props.createMessage(a.content, 3)
+    // dispatch(createMessage(a.content, 3));
   };
 
   return (
@@ -63,5 +64,5 @@ const mapStateToProps = (state) => {
 };
 
 // export default AnecdoteList;
-const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList);
+const ConnectedAnecdoteList = connect(mapStateToProps,{createMessage,voteAnecdote})(AnecdoteList);
 export default ConnectedAnecdoteList;
