@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { voteAnecdote } from "../reducers/anecdoteReducer";
 import { createMessage } from "../reducers/notificationReducer";
 
@@ -15,18 +16,18 @@ const Ancedote = ({ anecdote, handleClick }) => {
   );
 };
 
-const AnecdoteList = () => {
+const AnecdoteList = (props) => {
   const dispatch = useDispatch();
-
+  console.log("log props", props);
   //   const anecdotes = useSelector((state) => state.anecdotes);
   //   const pattern = useSelector((state)=>state.pattern)
-  const anecdotes = useSelector(({ anecdotes, filter }) => {
-    if (filter.trim() === "") {
-      return anecdotes;
+  const anecdotes = () => {
+    if (props.filter.trim() === "") {
+      return props.anecdotes;
     } else {
-      return anecdotes.filter((a) => a.content.includes(filter));
+      return props.anecdotes.filter((a) => a.content.includes(props.filter));
     }
-  });
+  };
 
   const vote = (a) => {
     console.log("vote", a.id);
@@ -37,7 +38,7 @@ const AnecdoteList = () => {
 
   return (
     <ul>
-      {anecdotes
+      {anecdotes()
         .sort((a, b) => b.votes - a.votes)
         .map((a) => (
           <Ancedote
@@ -52,4 +53,15 @@ const AnecdoteList = () => {
   );
 };
 
-export default AnecdoteList;
+const mapStateToProps = (state) => {
+  // sometimes it is useful to console log from mapStateToProps
+  console.log("log state", state);
+  return {
+    anecdotes: state.anecdotes,
+    filter: state.filter,
+  };
+};
+
+// export default AnecdoteList;
+const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList);
+export default ConnectedAnecdoteList;
