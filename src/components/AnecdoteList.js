@@ -31,10 +31,8 @@ const AnecdoteList = () => {
   const vote = (a) => {
     console.log("vote", a.id);
     dispatch(voteAnecdote(a.id));
-    dispatch(createMessage(`You voted '${a.content}'`));
-    setTimeout(()=>{
-        dispatch(createMessage(``));
-    },5000)
+
+    dispatch(createMessage(a.content, 3));
   };
 
   return (
