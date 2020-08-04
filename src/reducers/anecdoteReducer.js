@@ -11,6 +11,7 @@ export const createAnecdote = (content) => {
 };
 
 export const voteAnecdote = (id) => {
+  anecdoteService.vote(id)
   return {
     type: "VOTE",
     data: { id },
@@ -26,8 +27,6 @@ export const initAnecdotes = () => {
     });
   };
 };
-
-// const initialState = anecdotesAtStart.map(asObject);
 
 const reducer = (state = [], action) => {
   console.log("state now: ", state);
