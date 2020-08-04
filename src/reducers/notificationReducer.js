@@ -1,5 +1,7 @@
 const initialMessage = "Welcome to the Anecdotes";
 
+let timeoutid = undefined;
+
 const reducer = (state = initialMessage, action) => {
   switch (action.type) {
     case "MESSAGE": {
@@ -17,8 +19,12 @@ export const createMessage = (message, seconds) => {
       type: "MESSAGE",
       data: { message: `You voted '${message}'` },
     });
-    setTimeout(() => {
+    if (timeoutid) {
+      clearTimeout(timeoutid);
+    }
+    timeoutid = setTimeout(() => {
       dispatch({ type: "MESSAGE", data: { message: "" } });
+      timeoutid = undefined;
     }, seconds * 1000);
   };
 };

@@ -33,7 +33,7 @@ const AnecdoteList = (props) => {
     console.log("vote", a);
     // dispatch(voteAnecdote(a.id));
     props.voteAnecdote(a.id)
-    props.createMessage(a.content, 3)
+    props.createMessage(a.content, 5)
     // dispatch(createMessage(a.content, 3));
   };
 
@@ -60,6 +60,7 @@ const mapStateToProps = (state) => {
   return {
     anecdotes: state.anecdotes,
     filter: state.filter,
+    message:state.message,
   };
 };
 
